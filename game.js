@@ -12,6 +12,19 @@ const PLAYER_SPEED = 400;
 const PLAYER_JUMP_FORCE = 760;
 
 //*****************************************
+// objetos predefinidos
+//*****************************************
+function bullet(x, y){
+	return [
+		rect(8, 4),
+		color(247, 255, 5),
+		area(),
+		pos(x, y),
+		'bullet'
+	];
+}
+
+//*****************************************
 // comportamientos
 //*****************************************
 // arma
@@ -34,7 +47,9 @@ function gun(){
 		add(){},
 		// se ejecuta en cada iteracion
 		// mientras el objeto exista
-		update(){},
+		update(){
+			this.shoot();
+		},
 		// se ejecuta en cada iteracion despues
 		// de update, siempre que el objeto exista
 		draw(){},
@@ -43,6 +58,14 @@ function gun(){
 		destroy(){},
 		// modo ispector
 		inspect(){},
+
+		// funciones personalizadas
+		shoot(){
+			if(isKeyPressed('j')){
+				add(bullet(playerGun.worldPos().x + 20, playerGun.worldPos().y + 3.6));
+			}
+		},
+		reload(){},
 	};
 
 }
@@ -79,6 +102,23 @@ onKeyPress('w', () => {
 });
 
 //*****************************************
+// objeto arma
+//*****************************************
+const playerGun = make([
+	rect(20, 10),
+	color(24, 125, 45),
+	pos(50, 10),
+	gun(),
+]);
+
+//*****************************************
+// control de balas
+//*****************************************
+onUpdate('bullet', (b) => {
+	b.move(400, 0);
+});
+
+//*****************************************
 // arma
 //*****************************************
 const worlGun = add([
@@ -89,7 +129,7 @@ const worlGun = add([
 ]);
 
 worlGun.onCollide('player', (p) => {
-	p.color = rgb(0, 0, 255);
+	p.add(playerGun);
 	destroy(worlGun);
 } );
 
