@@ -12,6 +12,42 @@ const PLAYER_SPEED = 400;
 const PLAYER_JUMP_FORCE = 760;
 
 //*****************************************
+// comportamientos
+//*****************************************
+// arma
+function gun(){
+
+	// variables de control del comportamiento
+	let municion = 10;
+	let municionMaxima = 50;
+	let danio = 2;
+	let umbral = 0.4;
+	let puedeDisparar = true;
+
+	return {
+		// identificador del componente
+		id: 'gun',
+		// requiere de otros componentes
+		require: [],
+		// se ejecuta cuando el objeto
+		// se agrega a la escena
+		add(){},
+		// se ejecuta en cada iteracion
+		// mientras el objeto exista
+		update(){},
+		// se ejecuta en cada iteracion despues
+		// de update, siempre que el objeto exista
+		draw(){},
+		// se ejecuta cuando el objeto es
+		// destruido
+		destroy(){},
+		// modo ispector
+		inspect(){},
+	};
+
+}
+
+//*****************************************
 // personaje
 //*****************************************
 const player = add([
@@ -45,16 +81,16 @@ onKeyPress('w', () => {
 //*****************************************
 // arma
 //*****************************************
-const gun = add([
+const worlGun = add([
 	rect(50, 20),
 	color(40, 255, 0),
 	area(),
 	pos(500, height() - 100)
 ]);
 
-gun.onCollide('player', (p) => {
+worlGun.onCollide('player', (p) => {
 	p.color = rgb(0, 0, 255);
-	destroy(gun);
+	destroy(worlGun);
 } );
 
 //*****************************************
