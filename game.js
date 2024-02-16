@@ -20,6 +20,7 @@ function bullet(x, y){
 		color(247, 255, 5),
 		area(),
 		pos(x, y),
+		offscreen({ destroy: true }),
 		'bullet'
 	];
 }
@@ -115,7 +116,7 @@ const playerGun = make([
 // control de balas
 //*****************************************
 onUpdate('bullet', (b) => {
-	b.move(400, 0);
+	b.move(800, 0);
 });
 
 //*****************************************
